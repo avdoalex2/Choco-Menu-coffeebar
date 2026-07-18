@@ -9,6 +9,10 @@
         rel="stylesheet">
 
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Playfair Display';
             background-color: #0f2408;
@@ -19,6 +23,16 @@
             justify-content: center;
             -webkit-font-smoothing: antialiased;
             animation: smoothFadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes smoothFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .menu-wrapper {
@@ -66,43 +80,97 @@
             display: flex;
             justify-content: space-between;
             gap: 10px;
-            margin-bottom: 40px;
-            border-top: 1px solid #392f22;
-            border-bottom: 1px solid #574a39;
-            padding: 15px 0;
+            margin-bottom: 30px;
+            padding: 10px 0;
         }
 
         .category-btn {
             flex: 1;
             text-align: center;
             padding: 12px 5px;
-            background: #255e13;
-            border: 1px solid #c4b7a6;
-            color: #ffffff;
+            background: transparent;
+            border: 2px solid #255e13;
+            color: #255e13;
             text-decoration: none;
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 16px;
+            font-weight: 700;
             border-radius: 20px;
-            transition: smooth 1s;
+            transition: background-color 0.25s ease-out, color 0.25s ease-out;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Στυλ για το ενεργό κουμπί κατηγορίας */
+        .category-btn.active-btn {
+            background: #255e13;
+            color: #fff;
+        }
+
+        .category-btn:hover {
+            background: #255e13;
+            color: #fff;
         }
 
         .category-btn:active {
-            background: #211a14;
-            color: #c6af88;
+            background: #1a430d;
+            border-color: #1a430d;
+        }
+
+        .menu-category {
+            position: relative;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 15px;
+            background-size: cover;
+            background-position: center;
+            scroll-margin-top: 20px;
+            /* Δημιουργεί κενό όταν σκρολάρει από το κουμπί */
+            -webkit-mask-image: radial-gradient(ellipse 100% 70% at center, black 75%, transparent 70%);
+            mask-image: radial-gradient(ellipse 70% 70% at center, black 75%, transparent 90%);
+            -webkit-mask-image: radial-gradient(ellipse 100% 70% at center, black 75%, transparent 100%);
+            mask-image: radial-gradient(ellipse 100% 70% at center, black 75%, transparent 100%);
+            display: none;
+            /* Κρύβουμε όλες τις κατηγορίες από προεπιλογή */
+        }
+
+        /* Κλάση για να εμφανίζεται η ενεργή κατηγορία με animation */
+        .menu-category.active-category {
+            display: block;
+            animation: categoryFadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes categoryFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #cafes {
+            background-image: linear-gradient(rgba(215, 212, 188, 0.88), rgba(215, 212, 188, 0.88)), url('https://images.unsplash.com/photo-1595574444306-e235cef5ea37?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGNvZmZlJTIwaW1hZ2V8ZW58MHx8MHx8fDA%3D');
+        }
+
+        #pota {
+            background-image: linear-gradient(rgba(215, 212, 188, 0.85), rgba(215, 212, 188, 0.85)), url('https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=2157&auto=format&fit=crop');
+        }
+
+        #snacks {
+            background-image: linear-gradient(rgba(215, 212, 188, 0.85), rgba(215, 212, 188, 0.85)), url('https://images.unsplash.com/photo-1594007654729-407eedc4be65?q=80&w=1928&auto=format&fit=crop');
         }
 
         .section-title {
-            font-size: 15px;
+            font-size: 25px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: #7d6b58;
-            border-bottom: 1px solid #dcd3c7;
+            color: #5c4f40;
             padding-bottom: 8px;
-            margin-top: 50px;
             margin-bottom: 25px;
             font-weight: 600;
-            scroll-margin-top: 20px;
-            /* Δημιουργεί κενό όταν σκρολάρει από το κουμπί */
         }
 
         .item-row {
@@ -124,7 +192,7 @@
             font-size: 16px;
             font-weight: 600;
             padding-left: 8px;
-            background: #f5f1ea;
+
             position: relative;
             z-index: 2;
         }
@@ -158,66 +226,210 @@
 
         </header>
 
-        <nav class="navigation-categories">
+        <nav id="category-nav" class="navigation-categories">
             <a href="#cafes" class="category-btn">Καφέδες</a>
             <a href="#pota" class="category-btn">Ποτά</a>
             <a href="#snacks" class="category-btn">Σνακς</a>
         </nav>
 
-        <div id="cafes" class="section-title">Καφέδες</div>
+        <section id="cafes" class="menu-category">
+            <div class="section-title">Καφέδες</div>
 
-        <div class="item-row">
-            <span class="item-title">Freddo Espresso</span>
-            <span class="leader-line"></span>
-            <span class="item-cost">0,00 €</span>
-        </div>
-        <p class="item-details">Διπλή δόση espresso χτυπημένη με πάγο.</p>
+            <div class="item-row">
+                <span class="item-title">Freddo Espresso</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">2,50 €</span>
+            </div>
+            <p class="item-details">+0.50 € για τετραπλό.
+            </p>
 
-        <div class="item-row">
-            <span class="item-title">Ελληνικός Μονός</span>
-            <span class="leader-line"></span>
-            <span class="item-cost">0,00 €</span>
-        </div>
-        <p class="item-details">Ψημένος παραδοσιακά στο μπρίκι.</p>
+            <div class="item-row">
+                <span class="item-title">Freddo Capuccino</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">2,50 €</span>
+            </div>
+            <p class="item-details">+0.50 € για τετραπλό.
+            </p>
 
+            <div class="item-row">
+                <span class="item-title">Iced Latte</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">2,50 €</span>
+            </div>
+            <p class="item-details">
+            </p>
 
-        <div id="pota" class="section-title">Ποτά & Αναψυκτικά</div>
+            <div class="item-row">
+                <span class="item-title">Espresso</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">2,00 €</span>
+            </div>
+            <p class="item-details">+0.50 € για διπλό.
+            </p>
 
-        <div class="item-row">
-            <span class="item-title">Coca-Cola</span>
-            <span class="leader-line"></span>
-            <span class="item-cost">0,00 €</span>
-        </div>
-        <p class="item-details">Κλασική ή Zero.</p>
-
-        <div class="item-row">
-            <span class="item-title">Μπύρα Βαρέλι 500ml</span>
-            <span class="leader-line"></span>
-            <span class="item-cost">0,00 €</span>
-        </div>
-        <p class="item-details">.</p>
-
-
-        <div id="snacks" class="section-title">Σνακς & Σφολιάτες</div>
-
-        <div class="item-row">
-            <span class="item-title">Τοστ Ζαμπόν - Τυρί</span>
-            <span class="leader-line"></span>
-            <span class="item-cost">0,00 €</span>
-        </div>
-        <p class="item-details">Συνοδεύεται από πατατάκια.</p>
-
-        <div class="item-row">
-            <span class="item-title">Χειροποίητη Τυρόπιτα</span>
-            <span class="leader-line"></span>
-            <span class="item-cost">0,00 €</span>
-        </div>
-        <p class="item-details">Με χωριάτικο φύλλο και φέτα της περιοχής.</p>
+            <div class="item-row">
+                <span class="item-title">Capuccino</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">2,00 €</span>
+            </div>
+            <p class="item-details">+0.50 € για διπλό.
+            </p>
 
 
+            <div class="item-row">
+                <span class="item-title">Ελληνικός Μονός</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">1,50 €</span>
+            </div>
+            <p class="item-details">+0.50 € για διπλό.
+            </p>
+        </section>
+
+        <section id="pota" class="menu-category">
+            <div class="section-title">Ποτά & Αναψυκτικά</div>
+
+            <div class="item-row">
+                <span class="item-title">Μπύρα Βαρέλι 500ml</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">0,00 €</span>
+            </div>
+            <p class="item-details">.</p>
+
+            <div class="item-row">
+                <span class="item-title">Μπύρα μπουκάλι 500ml</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">5,00 €</span>
+            </div>
+            <p class="item-details">keizer , Αλφα , Heineken , Radler , 0% Alcohol</p>
+
+            <div class="item-row">
+                <span class="item-title">Απλά Ποτά</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">6,00 €</span>
+            </div>
+            <p class="item-details">.</p>
+
+            <div class="item-row">
+                <span class="item-title">Special Ποτά</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">7,00 €</span>
+            </div>
+            <p class="item-details">.</p>
+
+            <div class="item-row">
+                <span class="item-title">Aperol Spritz</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">7,00 €</span>
+            </div>
+            <p class="item-details">.</p>
+
+            <div class="item-row">
+                <span class="item-title">Coctail & Mojito</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">8,00 €</span>
+            </div>
+            <p class="item-details">.</p>
+
+
+            <div class="item-row">
+                <span class="item-title">Κλασικά Αναψυκτικά</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">2,50 €</span>
+            </div>
+            <p class="item-details">Coca-Cola , Πορτοκαλάδα , Λεμονάδα</p>
+
+            <div class="item-row">
+                <span class="item-title">Σόδα και Ανθρακούχο</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">2,00 €</span>
+            </div>
+            <p class="item-details">.</p>
+
+            <div class="item-row">
+                <span class="item-title">Σόδα Schweppes(Με γεύσεις)</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">2,50 €</span>
+            </div>
+            <p class="item-details">Ρόδι , πορτοκάλι , grapefruit</p>
+        </section>
+
+        <section id="snacks" class="menu-category">
+            <div class="section-title">Σνακς & Γλυκά</div>
+
+            <div class="item-row">
+                <span class="item-title">Πίτσα οκτάρα</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">8,00 €</span>
+            </div>
+            <p class="item-details">Μαργαρίτα , Special ...</p>
+
+            <div class="item-row">
+                <span class="item-title">Μπαγκέτα</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">2,50 €</span>
+            </div>
+            <p class="item-details">Κασέρι & Ζαμπόν η γαλοπούλα.</p>
+
+            <div class="item-row">
+                <span class="item-title">Παγωτό</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">2,50 €</span>
+            </div>
+            <p class="item-details">+2,50 κάθε επιπλέον μπάλα.</p>
+
+            <div class="item-row">
+                <span class="item-title">Βάφλα με μια μπάλα Παγωτό</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">5,00 €</span>
+            </div>
+            <p class="item-details">+2,50 κάθε επιπλέον μπάλα.</p>
+
+            <div class="item-row">
+                <span class="item-title">Ραβανί η Καρυδόπιτα</span>
+                <span class="leader-line"></span>
+                <span class="item-cost">3,50 €</span>
+            </div>
+            <p class="item-details">5,00 € με μπάλα παγωτό.</p>
+        </section>
         <footer>
             <p>Για οποιαδήποτε αλλεργία, ενημερώστε μας.</p>
         </footer>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const nav = document.getElementById('category-nav');
+                const buttons = nav.querySelectorAll('.category-btn');
+                const categories = document.querySelectorAll('.menu-category');
+
+                // Εμφάνισε την πρώτη κατηγορία και κάνε το πρώτο κουμπί ενεργό κατά τη φόρτωση
+                const firstCategory = document.querySelector('#cafes');
+                const firstButton = nav.querySelector('a[href="#cafes"]');
+                if (firstCategory && firstButton) {
+                    firstCategory.classList.add('active-category');
+                    firstButton.classList.add('active-btn');
+                }
+
+                buttons.forEach(button => {
+                    button.addEventListener('click', function (event) {
+                        event.preventDefault(); // Σταματάει το απότομο scroll
+
+                        // Αφαίρεσε την 'active' κλάση από όλα τα κουμπιά και τις κατηγορίες
+                        buttons.forEach(btn => btn.classList.remove('active-btn'));
+                        categories.forEach(cat => cat.classList.remove('active-category'));
+
+                        // Πρόσθεσε την 'active' κλάση στο πατημένο κουμπί
+                        this.classList.add('active-btn');
+
+                        // Βρες και εμφάνισε την αντίστοιχη κατηγορία
+                        const targetId = this.getAttribute('href');
+                        const targetCategory = document.querySelector(targetId);
+                        if (targetCategory) {
+                            targetCategory.classList.add('active-category');
+                        }
+                    });
+                });
+            });
+        </script>
     </div>
 
 </body>
