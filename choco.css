@@ -1,0 +1,233 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Lora', serif;
+    background-color: #0f2408;
+    color: #211a14;
+    margin: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    -webkit-font-smoothing: antialiased;
+    animation: smoothFadeIn 0.5s ease-in-out;
+}
+
+@keyframes smoothFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.menu-wrapper {
+    max-width: 540px;
+    width: 100%;
+    background: #d7d4bc;
+    padding: 45px 25px;
+    box-shadow: none;
+    border: none;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.brand-sub {
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #13370f;
+    margin-bottom: 5px;
+}
+
+h1 {
+    margin: 0;
+
+    font-size: 60px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    text-shadow: 3px 3px 0px #255e13;
+}
+
+.welcome-note {
+    font-size: 13px;
+    font-style: italic;
+    color: #635240;
+    margin-top: 10px;
+}
+
+/* ΤΑ 3 ΚΟΥΜΠΙΑ ΕΠΙΛΟΓΗΣ */
+.navigation-categories {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 30px;
+    padding: 10px 0;
+}
+
+.category-btn {
+    flex: 1;
+    text-align: center;
+    padding: 12px 5px;
+    background: transparent;
+    border: 2px solid #255e13;
+    color: #255e13;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 20px;
+    transition: all 0.25s ease-out;
+    box-shadow: -3px 3px 5px rgba(37, 94, 19, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Στυλ για το ενεργό κουμπί κατηγορίας */
+.category-btn.active-btn {
+    background: #255e13;
+    color: #d7d4bc;
+    box-shadow: none;
+}
+
+.category-btn:hover {
+    background: #255e13;
+    color: #d7d4bc;
+    box-shadow: none;
+    transform: translateY(-2px);
+}
+
+.category-btn:active {
+    background: #1a430d;
+    border-color: #1a430d;
+}
+
+.menu-category {
+    position: relative;
+    padding: 40px 25px;
+    margin-top: 30px;
+    border-radius: 15px;
+    background-size: cover;
+    background-position: center;
+    scroll-margin-top: 20px;
+    /* Δημιουργεί κενό όταν σκρολάρει από το κουμπί */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    display: none;
+    /* Κρύβουμε όλες τις κατηγορίες από προεπιλογή */
+}
+
+/* Κλάση για να εμφανίζεται η ενεργή κατηγορία με animation */
+.menu-category.active-category {
+    display: block;
+    animation: categoryFadeIn 0.4s ease-in-out;
+}
+
+@keyframes categoryFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#cafes {
+    background-image: linear-gradient(rgba(215, 212, 188, 0.88), rgba(215, 212, 188, 0.88)), url('https://images.unsplash.com/photo-1562447457-579fc34967fb?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fGNvZmZlZXxlbnwwfHwwfHx8MA%3D%3D');
+}
+
+#pota {
+    background-image: linear-gradient(rgba(215, 212, 188, 0.85), rgba(215, 212, 188, 0.85)), url('https://images.unsplash.com/photo-1657313666513-70770d329ef4?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGNvY3RhaWxzfGVufDB8fDB8fHww');
+}
+
+#snacks {
+    background-image: linear-gradient(rgba(215, 212, 188, 0.85), rgba(215, 212, 188, 0.85)), url('https://plus.unsplash.com/premium_photo-1679924471066-dd984e92f395?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHBpenphfGVufDB8fDB8fHww');
+}
+
+.section-title {
+    font-size: 32px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #392f22;
+    padding-bottom: 8px;
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-shadow: 0px 1px 2px rgba(215, 212, 188, 0.4);
+}
+
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4px;
+}
+
+
+
+.leader-line {
+    flex-grow: 1;
+    border-bottom: 0px dashed #c4b7a6;
+    margin-bottom: 4px;
+}
+
+.item-cost {
+    font-size: 16px;
+    font-weight: 600;
+    padding-left: 8px;
+
+    position: relative;
+    z-index: 2;
+}
+
+.item-details {
+    font-size: 13px;
+    color: #5c5043;
+    line-height: 1.4;
+    margin-top: 0;
+    margin-bottom: 22px;
+}
+
+footer {
+    text-align: center;
+    font-size: 12px;
+    color: #8c7d6c;
+    margin-top: 50px;
+    border-top: 1px dashed #dcd3c7;
+    padding-top: 20px;
+    font-style: italic;
+}
+
+/* --- Responsive Design για Κινητά --- */
+@media (max-width: 600px) {
+    body {
+        padding: 5px;
+    }
+
+    .menu-wrapper {
+        padding: 30px 15px;
+    }
+
+    h1 {
+        font-size: 50px;
+        text-shadow: 2px 2px 0px #255e13;
+    }
+
+    .section-title {
+        font-size: 26px;
+    }
+
+    .menu-category {
+        padding: 30px 20px;
+    }
+}
